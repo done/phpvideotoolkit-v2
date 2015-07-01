@@ -493,12 +493,19 @@
                     }
                     else
                     {
-                        $find = array_keys($value);
-                        array_walk($find, function(&$value, $key)
-                        {
-                            $value = '<'.$value.'>';
-                        });
-                        $command = str_replace($find, $value, $full_command);
+						$parsed_keys = array();
+                        $parsed_values = array();
+                        
+                        foreach ($value as $k => $val) {
+                            
+                            if(!is_array($val)) {
+                                $parsed_keys[] = '<' . $k . '>';
+                                $parsed_values[] = $val;
+                            }
+                            
+                        }
+                        
+                        $command = str_replace($parsed_keys, $parsed_values, $full_command); 
                     }
                 }
 //              otherwise, it's jsut a <setting> that is to be replaced
