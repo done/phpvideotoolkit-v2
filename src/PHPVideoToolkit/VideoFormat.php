@@ -140,7 +140,8 @@
                 if(empty($video_data['rotation']) === false)
                 {
                     $current_rotation = (int) $video_data['rotation'];
-                    $this->setVideoRotation(-$current_rotation);
+                    // For some reason the rotation value was set to a negative which caused incorrect rotations – a video should always rotate to the same value as its rotation metadata value.
+                    $this->setVideoRotation($current_rotation); 
                     $this->addCommand('-metadata:s:v', 'rotate=""');
                 }
                 else
